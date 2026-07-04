@@ -72,7 +72,7 @@ p{margin:0}
 .nav-toggle span{display:block;width:24px;height:2px;background:var(--ink);border-radius:2px}
 
 /* ---------- Hero ---------- */
-.hero{padding:72px 0 40px}
+.hero{padding:36px 0 40px}
 .hero-inner{display:grid;grid-template-columns:1.05fr .95fr;gap:60px;align-items:center}
 .hero h1{font-size:clamp(40px,6vw,72px);font-weight:400}
 .hero h1 em{font-style:italic;color:var(--cyan-deep)}
@@ -81,7 +81,8 @@ p{margin:0}
 .hero-note{font-size:14px;color:var(--ink-soft)}
 .hero-note a{font-weight:600}
 .hero-figure{position:relative}
-.hero-figure img{width:100%;aspect-ratio:5/6;object-fit:cover;border-radius:20px;box-shadow:var(--shadow)}
+.hero-figure img:not(.hero-seal){width:100%;aspect-ratio:5/6;object-fit:cover;border-radius:20px;box-shadow:var(--shadow)}
+.hero-seal{position:absolute;left:-14px;bottom:24px;width:116px;height:auto;filter:drop-shadow(0 8px 18px rgba(12,35,64,.28))}
 .hero-tag{position:absolute;left:-18px;bottom:26px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px 20px;box-shadow:var(--shadow-sm)}
 .hero-tag b{font-family:var(--display);font-size:30px;color:var(--ink);display:block;line-height:1}
 .hero-tag span{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft)}
@@ -113,8 +114,8 @@ p{margin:0}
 
 /* ---------- Range gallery ---------- */
 .range{background:var(--white)}
-.range-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
-.tile{position:relative;display:block;margin:0;border-radius:16px;overflow:hidden;border:1px solid var(--line);background:var(--paper);aspect-ratio:1/1}
+.range-grid{display:flex;flex-wrap:wrap;justify-content:center;gap:22px}
+.tile{position:relative;flex:0 1 calc(33.333% - 15px);margin:0;border-radius:16px;overflow:hidden;border:1px solid var(--line);background:var(--paper);aspect-ratio:1/1}
 .tile img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease}
 .tile:hover img{transform:scale(1.06)}
 .tile figcaption{position:absolute;inset:auto 0 0 0;padding:16px 18px;background:linear-gradient(180deg,transparent,rgba(12,35,64,.82));color:#fff;font-weight:600;font-size:16px;display:flex;justify-content:space-between;align-items:center}
@@ -127,10 +128,11 @@ p{margin:0}
 .heritage h2{color:#fff;font-size:clamp(30px,4vw,48px);font-weight:400}
 .heritage h2 em{font-style:italic;color:#7fc4ec}
 .heritage p{color:#c3d2e4;font-size:17px;margin-top:20px}
+.heritage-crest{margin-top:30px;width:300px;max-width:100%;height:auto}
 .heritage .eyebrow{color:#7fc4ec}
 .quote{font-family:var(--display);font-style:italic;font-size:clamp(22px,2.4vw,30px);line-height:1.35;color:#fff;border-left:3px solid var(--cyan);padding-left:24px;margin:0}
 .quote cite{display:block;font-family:var(--sans);font-style:normal;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:#8fb6d8;margin-top:16px}
-.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:26px 30px;margin-top:40px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:24px 22px;margin-top:40px}
 .stat b{font-family:var(--display);font-size:44px;font-weight:500;color:#fff;line-height:1;display:block}
 .stat span{font-size:14px;color:#a9bdd6;margin-top:8px;display:block}
 
@@ -143,8 +145,7 @@ p{margin:0}
 /* ---------- Footer ---------- */
 .site-footer{background:#08182b;color:#aebfd2;padding:52px 0 34px;text-align:center}
 .footer-inner{display:flex;flex-direction:column;align-items:center;gap:14px}
-.footer-inner img{height:32px;filter:brightness(0) invert(1);opacity:.9}
-.footer-tag{font-size:14px;color:#8ea3bb;margin:0}
+.footer-tag{font-size:15px;color:#9fb2c6;margin:0}
 .footer-legal{max-width:620px;margin:8px auto 0;padding-top:20px;border-top:1px solid rgba(255,255,255,.09);font-size:12.5px;line-height:1.7;color:#7f96ae}
 
 /* ==========================================================================
@@ -166,9 +167,10 @@ p{margin:0}
   .nav-list a{display:block;padding:16px 28px}
   .section{padding:64px 0}
   .hero{padding:48px 0 24px}
-  .features,.range-grid{grid-template-columns:1fr}
+  .features{grid-template-columns:1fr}
+  .tile{flex-basis:100%}
   .range-grid{max-width:460px;margin:0 auto}
-  .stats{grid-template-columns:1fr 1fr}
+  .stats{grid-template-columns:repeat(3,1fr)}
   .cta-row .btn{flex:1 1 100%}
 }
 @media (max-width:420px){
