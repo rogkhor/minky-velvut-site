@@ -25,7 +25,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&family=Libre+Franklin:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 
 <script type="application/ld+json">
@@ -49,7 +49,7 @@
       <img src="assets/img/logo.png" alt="Minky Homecare" width="100" height="38">
     </a>
     <nav class="site-nav" aria-label="Primary">
-      <button class="nav-toggle" aria-expanded="false" aria-controls="nav-list" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+      <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="nav-list" aria-label="Toggle menu"><span></span><span></span><span></span></button>
       <ul id="nav-list" class="nav-list">
         <li><a href="#why">Why Minky</a></li>
         <li><a href="#range">The Range</a></li>
@@ -60,29 +60,28 @@
   </div>
 </header>
 
-<main id="main">
+<main id="main" tabindex="-1">
 
   <section class="hero">
     <div class="wrap hero-inner">
       <div class="hero-copy">
-        <p class="eyebrow">Minky Homecare</p>
         <h1>Clean with <em>water</em> alone.</h1>
         <p class="hero-lead">Silver anti-bacterial microfibre that lifts grease and grime, and stops bacteria growing on the cloth between uses.</p>
       </div>
       <figure class="hero-figure">
-        <img src="assets/img/hero.webp" alt="Minky Mcloth microfibre cleaning cloths in use" loading="eager" width="600" height="720">
+        <img src="assets/img/hero.webp" alt="Minky Mcloth microfibre cleaning cloths in use" loading="eager" fetchpriority="high" width="600" height="720">
         <img class="hero-seal" src="assets/img/badge-antibac.png" alt="Silver anti-bacterial technology" width="118" height="96" loading="lazy">
       </figure>
     </div>
   </section>
 
   <section class="creds" aria-label="Brand credentials">
-    <div class="creds-inner">
-      <div class="cred"><b>Royal Warrant</b><span>By appointment to HM The King</span></div>
-      <div class="cred"><b>Designed in Britain</b><span>Owned and run in the UK</span></div>
-      <div class="cred"><b>ISO 9001 &amp; BRCGS</b><span>Independently accredited</span></div>
-      <div class="cred"><b>Family-run</b><span>Independent maker</span></div>
-    </div>
+    <dl class="creds-inner">
+      <div class="cred"><dt>Royal Warrant</dt><dd>By appointment to HM The King</dd></div>
+      <div class="cred"><dt>Designed in Britain</dt><dd>Owned and run in the UK</dd></div>
+      <div class="cred"><dt>ISO 9001 &amp; BRCGS</dt><dd>Independently accredited</dd></div>
+      <div class="cred"><dt>Family-run</dt><dd>Independent maker</dd></div>
+    </dl>
   </section>
 
   <section class="section why" id="why">
@@ -162,8 +161,8 @@
       <h2>Bring one home</h2>
       <p>Every Minky cloth, sponge and scourer, in one place.</p>
       <div class="cta-row">
-        <a class="btn btn-primary btn-lg" href="https://shopee.sg/minkyofficial" target="_blank" rel="noopener">Buy Now</a>
-        <a class="btn btn-primary btn-lg" href="https://wa.me/6588847945" target="_blank" rel="noopener">Contact Us</a>
+        <a class="btn btn-primary btn-lg" href="https://shopee.sg/minkyofficial" target="_blank" rel="noopener">Buy Now<span class="sr-only"> (opens in a new tab)</span></a>
+        <a class="btn btn-primary btn-lg" href="https://wa.me/6588847945" target="_blank" rel="noopener">Contact Us<span class="sr-only"> (opens in a new tab)</span></a>
       </div>
     </div>
   </section>

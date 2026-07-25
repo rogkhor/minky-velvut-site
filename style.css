@@ -2,22 +2,47 @@
    Minky Homecare - premium brochure site
    Editorial homeware aesthetic. Real photography, no drawn elements.
    Palette references Minky brand colours only.
-   Fonts: Newsreader (display serif) + Inter (sans).
+   Fonts: Newsreader (display serif) + Libre Franklin (sans).
+   Libre Franklin is a Franklin Gothic revival - press lineage, and it holds
+   authority in the tracked-out capitals that carry the credentials.
+   Type scale is in rem so the reader's browser font-size setting applies.
    ========================================================================== */
 
 :root{
+  /* --- light surfaces --- */
   --ink:#0C2340;            /* navy - primary text + dark sections */
-  --ink-soft:#3a4a5e;
+  --ink-soft:#3a4a5e;       /* secondary text on light */
   --paper:#FAF7F1;          /* warm off-white page */
   --paper-2:#F1EADD;        /* deeper warm neutral */
-  --line:#E7DECF;
+  --line:#E7DECF;           /* hairline borders */
   --white:#ffffff;
+
+  /* --- brand accents --- */
   --cyan:#0090CE;           /* brand cyan - graphic accents */
-  --cyan-deep:#0A6E9A;      /* accessible cyan for text/links (AA on white) */
-  --red:#E4002B;            /* union-jack red - tiny accents only */
+  --cyan-deep:#0A6E9A;      /* accessible cyan for text/links/focus on light */
+  --cyan-light:#7fc4ec;     /* accessible cyan for text/focus on navy */
+
+  /* --- dark surfaces (Heritage band + footer) --- */
+  --ink-deep:#08182b;       /* footer - darkest navy */
+  --ink-hover:#183a5c;      /* primary button hover */
+  --on-ink:#e8eef6;         /* body text on navy */
+  --on-ink-muted:#c3d2e4;   /* secondary text on navy */
+  --on-ink-dim:#a9bdd6;     /* tertiary text on navy */
+  --on-ink-faint:#8fb6d8;   /* citations / labels on navy */
+  --on-ink-deep:#7f96ae;    /* legal text on footer navy */
+
+  /* --- type scale: four steps at a 1.25 ratio ---------------------------
+     Everything below the display tier picks one of these. Headings use the
+     clamp()s further down. Four steps is deliberate: the previous eight
+     (12 / 12.5 / 13.5 / 14 / 15 / 16 / 17 / 18) were doing three jobs. */
+  --fs-xs:.8125rem;         /* 13px - tracked caps, meta, captions, legal */
+  --fs-sm:1rem;             /* 16px - body copy, UI, buttons, nav */
+  --fs-md:1.25rem;          /* 20px - leads and dark-band body */
+  --fs-lg:1.5625rem;        /* 25px - card headings */
+
   --wrap:1200px;
   --display:'Newsreader',Georgia,'Times New Roman',serif;
-  --sans:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+  --sans:'Libre Franklin',system-ui,-apple-system,'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif;
   --shadow:0 18px 50px rgba(12,35,64,.14);
   --shadow-sm:0 8px 24px rgba(12,35,64,.08);
 }
@@ -32,49 +57,53 @@ img{max-width:100%;display:block}
 a{color:var(--cyan-deep);text-decoration:none}
 h1,h2,h3{font-family:var(--display);font-weight:500;color:var(--ink);margin:0;line-height:1.08;letter-spacing:-.01em}
 p{margin:0}
+dl,dd{margin:0}
 
 .wrap{width:100%;max-width:var(--wrap);margin:0 auto;padding:0 28px}
 .skip-link{position:absolute;left:-999px;top:0;background:var(--ink);color:#fff;padding:10px 16px;z-index:300;border-radius:0 0 8px 0}
 .skip-link:focus{left:0}
-:focus-visible{outline:3px solid var(--cyan);outline-offset:3px;border-radius:4px}
+/* Focus ring: cyan-deep clears 3:1 on paper, paper-2 and white;
+   the navy band gets cyan-light, which clears 3:1 there. */
+:focus-visible{outline:3px solid var(--cyan-deep);outline-offset:3px;border-radius:4px}
+.heritage :focus-visible,.site-footer :focus-visible{outline-color:var(--cyan-light)}
+#main:focus{outline:none}
 #why,#range,#heritage,#buy{scroll-margin-top:90px}
-.eyebrow{font-family:var(--sans);text-transform:uppercase;letter-spacing:.22em;font-weight:600;font-size:12px;color:var(--cyan-deep)}
+.eyebrow{font-family:var(--sans);text-transform:uppercase;letter-spacing:.22em;font-weight:600;font-size:var(--fs-xs);color:var(--cyan-deep)}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 
 /* ---------- Buttons ---------- */
+/* btn-lg differs by padding and height, not type size - a 1px font bump
+   between two button sizes is not a hierarchy step. */
 .btn{
   display:inline-flex;align-items:center;justify-content:center;gap:8px;font-family:var(--sans);
-  font-weight:600;font-size:15px;letter-spacing:.01em;padding:15px 26px;border-radius:6px;
-  color:#fff;min-height:52px;transition:transform .14s ease,background .2s ease,box-shadow .2s ease;
+  font-weight:600;font-size:var(--fs-sm);letter-spacing:.01em;padding:15px 26px;border-radius:6px;
+  color:#fff;min-height:3.25rem;transition:transform .14s ease,background .2s ease,box-shadow .2s ease;
   border:1px solid transparent;cursor:pointer;
 }
 .btn:hover{transform:translateY(-2px)}
 .btn-primary{background:var(--ink);color:#fff}
-.btn-primary:hover{background:#183a5c}
-.btn-ghost{background:transparent;color:var(--ink);border-color:var(--ink)}
-.btn-ghost:hover{background:var(--ink);color:#fff}
-.btn-lg{font-size:16px;padding:17px 32px;min-height:58px}
+.btn-primary:hover{background:var(--ink-hover)}
+.btn-lg{padding:17px 32px;min-height:3.625rem}
 .cta-row{display:flex;flex-wrap:wrap;gap:14px}
 
 /* ---------- Header ---------- */
 .site-header{position:sticky;top:0;z-index:100;background:rgba(250,247,241,.92);-webkit-backdrop-filter:saturate(1.3) blur(10px);backdrop-filter:saturate(1.3) blur(10px);border-bottom:1px solid var(--line)}
 .header-inner{display:flex;align-items:center;justify-content:space-between;gap:24px;min-height:74px}
+.logo{display:flex;align-items:center;min-height:44px}
 .logo img{height:38px;width:auto}
 .site-nav{display:flex;align-items:center;gap:30px}
 .nav-list{display:flex;list-style:none;gap:28px;margin:0;padding:0}
-.nav-list a{color:var(--ink);font-weight:500;font-size:15px}
+.nav-list a{color:var(--ink);font-weight:500;font-size:var(--fs-sm)}
 .nav-list a:hover{color:var(--cyan-deep)}
-.header-cta{display:flex;gap:10px}
-.nav-toggle{display:none;background:none;border:0;padding:8px;cursor:pointer;flex-direction:column;gap:5px}
+.nav-toggle{display:none;background:none;border:0;padding:10px;cursor:pointer;flex-direction:column;align-items:center;justify-content:center;gap:5px;min-width:44px;min-height:44px}
 .nav-toggle span{display:block;width:24px;height:2px;background:var(--ink);border-radius:2px}
 
 /* ---------- Hero ---------- */
 .hero{padding:44px 0 56px}
 .hero-inner{display:grid;grid-template-columns:1.05fr .95fr;gap:60px;align-items:center}
-.hero h1{font-size:clamp(44px,6.6vw,84px);font-weight:400}
+.hero h1{font-size:clamp(2.75rem,6.6vw,5.25rem);font-weight:400}
 .hero h1 em{font-style:italic;color:var(--cyan-deep)}
-.hero-lead{font-size:clamp(18px,1.75vw,22px);color:var(--ink-soft);max-width:540px;margin:28px 0 0}
-.hero-note{font-size:14px;color:var(--ink-soft)}
-.hero-note a{font-weight:600}
+.hero-lead{font-size:clamp(var(--fs-md),1.75vw,1.5rem);color:var(--ink-soft);max-width:540px;margin:28px 0 0}
 .hero-figure{position:relative}
 .hero-figure img:not(.hero-seal){width:100%;aspect-ratio:5/6;object-fit:cover;border-radius:20px;box-shadow:var(--shadow)}
 .hero-seal{position:absolute;left:-14px;bottom:24px;width:116px;height:auto;filter:drop-shadow(0 8px 18px rgba(12,35,64,.28))}
@@ -83,14 +112,13 @@ p{margin:0}
 .creds{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--paper-2)}
 .creds-inner{display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px 32px;padding:22px 28px;max-width:var(--wrap);margin:0 auto}
 .cred{display:flex;flex-direction:column;min-width:120px}
-.cred b{font-family:var(--sans);font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink)}
-.cred span{font-size:12.5px;color:var(--ink-soft);margin-top:3px}
+.cred dt{font-family:var(--sans);font-size:var(--fs-xs);font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink)}
+.cred dd{font-size:var(--fs-xs);color:var(--ink-soft);margin-top:3px}
 
 /* ---------- Section scaffolding ---------- */
 .section{padding:90px 0}
 .section-head{max-width:660px;margin:0 auto 54px;text-align:center}
-.section-head h2{font-size:clamp(30px,4vw,46px);margin:14px 0 0;font-weight:400}
-.section-head p:not(.eyebrow){color:var(--ink-soft);font-size:18px;margin-top:16px}
+.section-head h2{font-size:clamp(1.875rem,4vw,2.875rem);margin:14px 0 0;font-weight:400}
 
 /* ---------- Why / features ---------- */
 .features{display:grid;grid-template-columns:repeat(3,1fr);gap:30px}
@@ -100,9 +128,9 @@ p{margin:0}
 .feature-media img{width:100%;height:100%;object-fit:contain;padding:14px;transition:transform .4s ease}
 .feature:hover .feature-media img{transform:scale(1.05)}
 .feature-body{padding:26px 26px 30px}
-.feature-body .kicker{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--cyan-deep);font-weight:600}
-.feature-body h3{font-size:23px;margin:10px 0 10px}
-.feature-body p{color:var(--ink-soft);font-size:15px}
+.feature-body .kicker{font-size:var(--fs-xs);letter-spacing:.16em;text-transform:uppercase;color:var(--cyan-deep);font-weight:600}
+.feature-body h3{font-size:var(--fs-lg);margin:10px 0 10px}
+.feature-body p{color:var(--ink-soft);font-size:var(--fs-sm)}
 
 /* ---------- Range gallery ---------- */
 .range{background:var(--paper-2)}
@@ -110,33 +138,32 @@ p{margin:0}
 .tile{display:flex;flex-direction:column;flex:0 1 calc(33.333% - 15px);margin:0;border-radius:16px;overflow:hidden;border:1px solid var(--line);background:var(--white);transition:transform .18s ease,box-shadow .25s ease}
 .tile:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
 .tile img{width:100%;aspect-ratio:1/1;object-fit:cover;display:block}
-.tile figcaption{padding:16px 18px 18px;color:var(--ink);font-weight:600;font-size:16px;display:flex;flex-direction:column;gap:4px}
-.tile figcaption span{font-size:13.5px;font-weight:500;color:var(--ink-soft)}
+.tile figcaption{padding:16px 18px 18px;color:var(--ink);font-weight:600;font-size:var(--fs-sm);display:flex;flex-direction:column;gap:4px}
+.tile figcaption span{font-size:var(--fs-xs);font-weight:500;color:var(--ink-soft)}
 
 /* ---------- Heritage ---------- */
-.heritage{background:var(--ink);color:#e8eef6}
+.heritage{background:var(--ink);color:var(--on-ink)}
 .heritage-inner{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
-.heritage h2{color:#fff;font-size:clamp(30px,4vw,48px);font-weight:400}
-.heritage h2 em{font-style:italic;color:#7fc4ec}
-.heritage p:not(.eyebrow){color:#c3d2e4;font-size:17px;margin-top:20px}
-.heritage .eyebrow{color:#7fc4ec}
-.quote{font-family:var(--display);font-style:italic;font-size:clamp(22px,2.4vw,30px);line-height:1.35;color:#fff;border-left:3px solid var(--cyan);padding-left:24px;margin:0}
-.quote cite{display:block;font-family:var(--sans);font-style:normal;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:#8fb6d8;margin-top:16px}
+.heritage h2{color:var(--white);font-size:clamp(1.875rem,4vw,3rem);font-weight:400}
+.heritage h2 em{font-style:italic;color:var(--cyan-light)}
+.heritage p:not(.eyebrow){color:var(--on-ink-muted);font-size:var(--fs-md);margin-top:20px}
+.heritage .eyebrow{color:var(--cyan-light)}
+.quote{font-family:var(--display);font-style:italic;font-size:clamp(1.375rem,2.4vw,1.875rem);line-height:1.35;color:var(--white);border-left:3px solid var(--cyan);padding-left:24px;margin:0}
+.quote cite{display:block;font-family:var(--sans);font-style:normal;font-size:var(--fs-xs);letter-spacing:.14em;text-transform:uppercase;color:var(--on-ink-faint);margin-top:16px}
 .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:24px 22px;margin-top:40px}
-.stat b{font-family:var(--display);font-size:44px;font-weight:500;color:#fff;line-height:1;display:block}
-.stat span{font-size:14px;color:#a9bdd6;margin-top:8px;display:block}
+.stat b{font-family:var(--display);font-size:2.75rem;font-weight:500;color:var(--white);line-height:1;display:block}
+.stat span{font-size:var(--fs-xs);color:var(--on-ink-dim);margin-top:8px;display:block}
 
 /* ---------- Buy band ---------- */
 .buy{background:var(--paper-2);text-align:center}
-.buy h2{font-size:clamp(30px,4vw,48px);font-weight:400;margin-top:12px}
-.buy p:not(.eyebrow){color:var(--ink-soft);font-size:18px;max-width:560px;margin:16px auto 32px}
+.buy h2{font-size:clamp(1.875rem,4vw,3rem);font-weight:400;margin-top:12px}
+.buy p:not(.eyebrow){color:var(--ink-soft);font-size:var(--fs-md);max-width:560px;margin:16px auto 32px}
 .buy .cta-row{justify-content:center}
 
 /* ---------- Footer ---------- */
-.site-footer{background:#08182b;color:#aebfd2;padding:24px 0 22px;text-align:center}
+.site-footer{background:var(--ink-deep);color:var(--on-ink-dim);padding:24px 0 22px;text-align:center}
 .footer-inner{display:flex;flex-direction:column;align-items:center;gap:14px}
-.footer-tag{font-size:15px;color:#9fb2c6;margin:0}
-.footer-legal{max-width:620px;margin:0 auto;font-size:12.5px;line-height:1.7;color:#7f96ae}
+.footer-legal{max-width:620px;margin:0 auto;font-size:var(--fs-xs);line-height:1.7;color:var(--on-ink-deep)}
 
 /* ==========================================================================
    Responsive
@@ -147,18 +174,24 @@ p{margin:0}
   .hero-seal{left:auto;right:14px;bottom:16px;width:96px}
   .heritage-inner{grid-template-columns:1fr;gap:40px}
 }
+/* Tablet: step down to two columns before collapsing to one. */
 @media (max-width:880px){
-  .features{grid-template-columns:1fr;max-width:520px;margin:0 auto}
+  .features{grid-template-columns:repeat(2,1fr)}
+  .tile{flex-basis:calc(50% - 11px)}
 }
 @media (max-width:760px){
-  .header-cta{display:none}
   .nav-toggle{display:flex}
-  .nav-list{position:absolute;top:74px;left:0;right:0;flex-direction:column;background:var(--paper);border-bottom:1px solid var(--line);gap:0;max-height:0;overflow:hidden;visibility:hidden;transition:max-height .3s ease,visibility .3s;box-shadow:var(--shadow-sm)}
-  .nav-list.open{max-height:320px;visibility:visible}
+  /* The panel is absolutely positioned, so it never affects page layout.
+     Reveal it with opacity + transform (compositor-only) rather than by
+     animating max-height, which would relayout on every frame. max-height
+     here is a static safety clamp, not part of the transition. */
+  .nav-list{position:absolute;top:100%;left:0;right:0;flex-direction:column;background:var(--paper);border-bottom:1px solid var(--line);gap:0;max-height:calc(100vh - 74px);overflow-y:auto;opacity:0;transform:translateY(-8px);visibility:hidden;transition:opacity .22s ease,transform .22s ease,visibility .22s;box-shadow:var(--shadow-sm)}
+  .nav-list.open{opacity:1;transform:none;visibility:visible}
   .nav-list li{width:100%;border-top:1px solid var(--line)}
   .nav-list a{display:block;padding:16px 28px}
   .section{padding:64px 0}
   .hero{padding:32px 0 48px}
+  .features{grid-template-columns:1fr;max-width:520px;margin:0 auto}
   .creds-inner{display:grid;grid-template-columns:1fr 1fr;gap:18px 24px}
   .tile{flex-basis:100%}
   .range-grid{max-width:460px;margin:0 auto}
@@ -168,6 +201,17 @@ p{margin:0}
   .wrap,.creds-inner{padding-left:20px;padding-right:20px}
   .stats{grid-template-columns:1fr}
 }
+
+/* Reduced motion: remove the movement, keep the state change.
+   A blanket `transition:none` would strip the hover feedback while leaving
+   the transforms to jump instantly - abrupt motion instead of smooth motion. */
 @media (prefers-reduced-motion:reduce){
-  *{scroll-behavior:auto!important;transition:none!important}
+  html{scroll-behavior:auto}
+  .btn,.feature,.tile{transition:background .2s ease,box-shadow .25s ease,color .2s ease}
+  .btn:hover,.feature:hover,.tile:hover{transform:none}
+  .feature-media img{transition:none}
+  .feature:hover .feature-media img{transform:none}
+  /* Nav panel still fades in - opacity is not motion - but does not slide. */
+  .nav-list,.nav-list.open{transform:none}
+  .nav-list{transition:opacity .2s ease,visibility .2s}
 }
