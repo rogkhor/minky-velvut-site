@@ -119,6 +119,7 @@ dl,dd{margin:0}
 .section{padding:90px 0}
 .section-head{max-width:660px;margin:0 auto 54px;text-align:center}
 .section-head h2{font-size:clamp(1.875rem,4vw,2.875rem);margin:14px 0 0;font-weight:400}
+.section-intro{color:var(--ink-soft);font-size:var(--fs-md);margin:20px auto 0;max-width:620px}
 
 /* ---------- Why / features ---------- */
 .features{display:grid;grid-template-columns:repeat(3,1fr);gap:30px}
@@ -151,7 +152,8 @@ dl,dd{margin:0}
 .quote{font-family:var(--display);font-style:italic;font-size:clamp(1.375rem,2.4vw,1.875rem);line-height:1.35;color:var(--white);border-left:3px solid var(--cyan);padding-left:24px;margin:0}
 .quote cite{display:block;font-family:var(--sans);font-style:normal;font-size:var(--fs-xs);letter-spacing:.14em;text-transform:uppercase;color:var(--on-ink-faint);margin-top:16px}
 .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:24px 22px;margin-top:40px}
-.stat b{font-family:var(--display);font-size:2.75rem;font-weight:500;color:var(--white);line-height:1;display:block}
+/* tabular figures so the counting numbers do not jitter their own width */
+.stat b{font-family:var(--display);font-size:2.75rem;font-weight:500;color:var(--white);line-height:1;display:block;font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1}
 .stat span{font-size:var(--fs-xs);color:var(--on-ink-dim);margin-top:8px;display:block}
 
 /* ---------- Buy band ---------- */
@@ -202,6 +204,16 @@ dl,dd{margin:0}
   .stats{grid-template-columns:1fr}
 }
 
+/* ---------- Motion ----------
+   These states apply ONLY when an inline <head> script has added .js-motion,
+   which it does only if JS runs and reduced motion is not requested. With no
+   JS, or if motion.js never loads (2.5s failsafe removes the class), the hero
+   is simply visible. The h1 is the LCP element, so it is offset by transform
+   alone - never opacity - and paints immediately at full strength. */
+.js-motion .hero h1{transform:translateY(14px)}
+.js-motion .hero-lead,
+.js-motion .hero-figure{opacity:0}
+
 /* Reduced motion: remove the movement, keep the state change.
    A blanket `transition:none` would strip the hover feedback while leaving
    the transforms to jump instantly - abrupt motion instead of smooth motion. */
@@ -214,4 +226,9 @@ dl,dd{margin:0}
   /* Nav panel still fades in - opacity is not motion - but does not slide. */
   .nav-list,.nav-list.open{transform:none}
   .nav-list{transition:opacity .2s ease,visibility .2s}
+  /* Belt and braces: the inline script should never have added .js-motion
+     under this query, but if it somehow did, the hero stays put and visible. */
+  .js-motion .hero h1{transform:none}
+  .js-motion .hero-lead,
+  .js-motion .hero-figure{opacity:1}
 }
